@@ -1,4 +1,4 @@
-package com.nure.ua.model.exception;
+package com.nure.ua.exception;
 
 public class ServiceException extends Exception{
 

@@ -1,9 +1,8 @@
 package com.nure.ua.model.repository;
 
 import com.nure.ua.model.entity.Entity;
-import com.nure.ua.model.exception.RepositoryException;
+import com.nure.ua.exception.RepositoryException;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface Repository<T extends Entity> {

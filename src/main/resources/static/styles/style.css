@@ -1,0 +1,26 @@
+.auth-form {
+    -fx-background-radius: 20;
+    -fx-background-color: White;
+
+}
+
+#quit-btn {
+    -fx-image: url(../img/x_button.png);
+}
+
+.action-btn {
+    -fx-background-radius: 0;
+    /*-fx-border-color: black;*/
+}
+
+.enter-text-field {
+    -fx-background-radius: 0;
+    /*-fx-border-color: black;*/
+}
+
+#toolPanel {
+    /*-fx-background-color: linear-gradient(to top, #ffffff, #b9b9b9, #777777, #3b3b3b, #000000);*/
+    -fx-background-color: linear-gradient(to top, #ffffff, #f1f1f1, #e3e3e3, #d6d6d6, #c8c8c8);
+    /*-fx-background-color: linear-gradient(to bottom, #96f3ff, #b9f4ff, #dbf5ff, #f3f8ff, #ffffff);*/
+
+}

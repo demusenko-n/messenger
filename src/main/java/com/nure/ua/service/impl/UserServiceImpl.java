@@ -2,9 +2,9 @@ package com.nure.ua.service.impl;
 
 import com.nure.ua.model.ConnectionPool;
 import com.nure.ua.model.entity.User;
-import com.nure.ua.model.exception.ConnectionException;
-import com.nure.ua.model.exception.RepositoryException;
-import com.nure.ua.model.exception.ServiceException;
+import com.nure.ua.exception.ConnectionException;
+import com.nure.ua.exception.RepositoryException;
+import com.nure.ua.exception.ServiceException;
 import com.nure.ua.model.repository.impl.UserRepositoryImpl;
 import com.nure.ua.service.ServiceAbstract;
 import com.nure.ua.service.UserService;
@@ -23,8 +23,8 @@ public class UserServiceImpl extends ServiceAbstract<User> implements UserServic
         }
         try (var con = getPool().getFreeConnection()) {
             new UserRepositoryImpl(con).create(entity);
-        } catch (ConnectionException | RepositoryException e) {
-            throw new ServiceException();
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
         }
     }
 
@@ -35,8 +35,8 @@ public class UserServiceImpl extends ServiceAbstract<User> implements UserServic
         }
         try (var con = getPool().getFreeConnection()) {
             new UserRepositoryImpl(con).update(entity);
-        } catch (ConnectionException | RepositoryException e) {
-            throw new ServiceException();
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
         }
     }
 
@@ -47,24 +47,24 @@ public class UserServiceImpl extends ServiceAbstract<User> implements UserServic
         }
         try (var con = getPool().getFreeConnection()) {
             new UserRepositoryImpl(con).delete(entity);
-        } catch (ConnectionException | RepositoryException e) {
-            throw new ServiceException();
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
         }
     }
 
     public List<User> getAll() throws ServiceException {
         try (var con = getPool().getFreeConnection()) {
             return new UserRepositoryImpl(con).getAll();
-        } catch (ConnectionException | RepositoryException e) {
-            throw new ServiceException();
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
         }
     }
 
     public User getById(int id) throws ServiceException {
         try (var con = getPool().getFreeConnection()) {
             return new UserRepositoryImpl(con).getById(id);
-        } catch (ConnectionException | RepositoryException e) {
-            throw new ServiceException();
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
         }
     }
 
@@ -77,8 +77,8 @@ public class UserServiceImpl extends ServiceAbstract<User> implements UserServic
                 return userWithLogin;
             }
             return null;
-        } catch (ConnectionException | RepositoryException e) {
-            throw new ServiceException();
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
         }
     }
 
@@ -86,8 +86,17 @@ public class UserServiceImpl extends ServiceAbstract<User> implements UserServic
     public User getUserByLogin(String login) throws ServiceException {
         try (var con = getPool().getFreeConnection()) {
             return new UserRepositoryImpl(con).getByLogin(login);
-        } catch (ConnectionException | RepositoryException e) {
-            throw new ServiceException();
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
+        }
+    }
+
+    @Override
+    public User getUserById(int id) throws ServiceException {
+        try (var con = getPool().getFreeConnection()) {
+            return new UserRepositoryImpl(con).getById(id);
+        } catch (ConnectionException | RepositoryException ex) {
+            throw new ServiceException(ex.getMessage());
         }
     }
 }

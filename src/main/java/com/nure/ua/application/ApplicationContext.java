@@ -1,7 +1,12 @@
 package com.nure.ua.application;
 
+import com.nure.ua.a_serverSide.ClientContainer;
+import com.nure.ua.a_serverSide.Server;
+import com.nure.ua.a_serverSide.application.ServerApp;
+import com.nure.ua.a_serverSide.serverCommand.SendMessageCommand;
+import com.nure.ua.a_serverSide.serverCommand.SignInCommand;
+import com.nure.ua.a_serverSide.serverCommand.SignUpCommand;
 import com.nure.ua.model.ConnectionPool;
-import com.nure.ua.model.server.Server;
 import com.nure.ua.service.MessageService;
 import com.nure.ua.service.UserService;
 import com.nure.ua.service.impl.MessageServiceImpl;
@@ -16,14 +21,17 @@ public class ApplicationContext {
     private UserService userService;
     private MessageService messageService;
     private ConnectionPool pool;
+    private ClientContainer clientContainer;
 
     public void config() throws Exception {
         try {
             initPool();
+            initClientContainer();
             initServices();
+            initCommands();
             initServer();
         } catch (SQLException | IOException ex) {
-            throw new Exception();
+            throw new Exception(ex.getMessage());
         }
     }
 
@@ -43,7 +51,17 @@ public class ApplicationContext {
         messageService = new MessageServiceImpl(pool);
     }
 
-    private void initServer() {
-        ServerApp.server = new Server(messageService, userService);
+    private void initClientContainer() {
+        clientContainer = new ClientContainer();
+    }
+
+    private void initCommands() {
+        ServerApp.getCommands().addCommand("sign_in", new SignInCommand(clientContainer, userService, messageService));
+        ServerApp.getCommands().addCommand("sign_up", new SignUpCommand(clientContainer, userService, messageService));
+        ServerApp.getCommands().addCommand("send_message", new SendMessageCommand(clientContainer, userService, messageService));
+    }
+
+    private void initServer(){
+        ServerApp.setServer(new Server(clientContainer));
     }
 }
