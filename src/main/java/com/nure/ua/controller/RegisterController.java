@@ -1,6 +1,5 @@
 package com.nure.ua.controller;
 
-import com.nure.ua.util.Attribute;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -38,9 +37,9 @@ public class RegisterController extends Controller {
         String login = loginTextField.getText();
         String password = passwordTextField.getText();
 
-        sendToServer(Attribute.composeAttribute("TYPE", "SIGNUP") +
-                Attribute.composeAttribute("NAME", name) +
-                Attribute.composeAttribute("LOGIN", login) +
-                Attribute.composeAttribute("PASSWORD", password));
+//        sendToServer(Attribute.composeAttribute("TYPE", "SIGNUP") +
+//                Attribute.composeAttribute("NAME", name) +
+//                Attribute.composeAttribute("LOGIN", login) +
+//                Attribute.composeAttribute("PASSWORD", password));
     }
 }

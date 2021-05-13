@@ -1,5 +1,6 @@
 package com.nure.ua.controller;
 
+import com.nure.ua.exchangeData.Request;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -75,9 +76,10 @@ public abstract class Controller implements Initializable {
         controller.setWriter(writer);
     }
 
-    protected void sendToServer(String string) {
-        writer.println(string);
-        System.out.println("send " + string);
+    protected void sendToServer(Request request) {
+        String reqJson = null;  // requestToJson(request);
+        writer.println(reqJson);
+        System.out.println("send " + reqJson);
     }
 
     public abstract void receiveData(String string);
@@ -85,11 +87,11 @@ public abstract class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-            if(toolPanel != null) {
+            if (toolPanel != null) {
                 toolPanel.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onWindowDragged);
                 toolPanel.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onWindowPressed);
             }
-            if(mainWindow != null) {
+            if (mainWindow != null) {
                 mainWindow.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onAnchorPaneClick);
                 mainWindow.requestFocus();
             }

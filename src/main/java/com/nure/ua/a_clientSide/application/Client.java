@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientApp extends Application {
+public class Client extends Application {
     private PrintWriter writerToServer;
     private FXMLLoader loader;
 

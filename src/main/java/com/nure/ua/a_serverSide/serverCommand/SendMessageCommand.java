@@ -18,8 +18,7 @@ public class SendMessageCommand extends Command {
     private final UserService userService;
     private final MessageService messageService;
     private static final String CMD = "newmessage";
-    public SendMessageCommand(ClientContainer container, UserService userService, MessageService messageService) {
-        super(container);
+    public SendMessageCommand(UserService userService, MessageService messageService) {
         this.userService = userService;
         this.messageService = messageService;
     }
@@ -31,10 +30,10 @@ public class SendMessageCommand extends Command {
         Integer idSender, idReceiver, quoteMessageId;
         String content;
 
-        idSender = (Integer) request.data.args.get("sender");
-        idReceiver = (Integer) request.data.args.get("receiver");
-        quoteMessageId = (Integer) request.data.args.get("quote");
-        content = (String) request.data.args.get("content");
+        idSender = (Integer) request.data.getArgs().get("sender");
+        idReceiver = (Integer) request.data.getArgs().get("receiver");
+        quoteMessageId = (Integer) request.data.getArgs().get("quote");
+        content = (String) request.data.getArgs().get("content");
 
         if (idSender == null || idReceiver == null || content == null) {
             responsePack.setFailState("Not enough arguments");
@@ -57,9 +56,9 @@ public class SendMessageCommand extends Command {
             messageService.createMessage(message);
 
             responsePack.command = CMD;
-            responsePack.args.put("message", message);
+            responsePack.getArgs().put("message", message);
 
-            List<Session> sessions = getSessionsOfUser(receiver);
+            List<Session> sessions = ClientContainer.getSessionsOfUser(receiver);
             sessions.add(session);
 
             for (Session s : sessions) {

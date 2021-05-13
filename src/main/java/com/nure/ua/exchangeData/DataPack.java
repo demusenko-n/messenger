@@ -5,7 +5,12 @@ import java.util.Map;
 
 public class DataPack {
     public String command;
-    public Map<String, Object> args;
+
+    public Map<String, Object> getArgs() {
+        return args;
+    }
+
+    private final Map<String, Object> args;
 
     public DataPack() {
         this.command = "";

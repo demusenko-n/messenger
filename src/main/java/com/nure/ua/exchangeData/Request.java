@@ -1,6 +1,5 @@
 package com.nure.ua.exchangeData;
 
-
 public class Request {
     public DataPack data;
 

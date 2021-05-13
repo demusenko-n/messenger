@@ -1,6 +1,7 @@
 package com.nure.ua.a_serverSide;
 
 import com.nure.ua.exchangeData.Session;
+import com.nure.ua.model.entity.User;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -10,27 +11,34 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ClientContainer {
+    private ClientContainer() {
+    }
+
+    public static List<Session> getSessionsOfUser(User user) {
+        return ClientContainer.getClientsByUserId(user.getId()).stream().map(clientSession -> clientSession.session).collect(Collectors.toList());
+    }
+
     private static int counter = 0;
-    private final List<ClientSession> clients;
+    private static final List<ClientSession> clients;
 
-
-    public List<ClientSession> getClients() {
+    public static List<ClientSession> getClients() {
         return clients;
     }
 
-    public Optional<ClientSession> getClientBySessionId(int id) {
+    public static Optional<ClientSession> getClientBySessionId(int id) {
         return clients.stream().filter(x -> x.session.getId() == id).findFirst();
     }
 
-    public List<ClientSession> getClientsByUserId(int id) {
+    public static List<ClientSession> getClientsByUserId(int id) {
         return clients.stream().filter(x -> (x.session.getUser() != null && x.session.getUser().getId() == id)).collect(Collectors.toList());
     }
-
-    public ClientContainer() {
+    static{
         clients = new ArrayList<>();
     }
 
-    public void addClient(Socket client) throws IOException {
-        clients.add(new ClientSession(client, new Session(null, ++counter)));
+    public static void addClient(Socket client) throws IOException {
+        ClientSession session = new ClientSession(client, new Session(null, ++counter));
+        session.start();
+        clients.add(session);
     }
 }

@@ -1,5 +1,4 @@
 package com.nure.ua.exchangeData;
-
 import com.nure.ua.model.entity.User;
 
 public class Session {

@@ -1,15 +1,15 @@
 package com.nure.ua.a_clientSide;
 
 
-import com.nure.ua.a_clientSide.application.ClientApp;
+import com.nure.ua.a_clientSide.application.Client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class ServerReader extends Thread {
     private final BufferedReader in;
-    private final ClientApp client;
-    public ServerReader(BufferedReader reader, ClientApp client) {
+    private final Client client;
+    public ServerReader(BufferedReader reader, Client client) {
         in = reader;
         this.client = client;
     }
@@ -20,7 +20,6 @@ public class ServerReader extends Thread {
             //noinspection InfiniteLoopStatement
             while (true) {
                 String serverWord = in.readLine();
-
                 client.receiveData(serverWord);
             }
         } catch (IOException ex) {

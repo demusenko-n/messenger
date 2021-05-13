@@ -1,15 +1,29 @@
-package com.nure.ua.a_serverSide;
+package com.nure.ua.a_serverSide.application;
+
+import com.nure.ua.a_serverSide.ClientContainer;
+import com.nure.ua.a_serverSide.serverCommand.ServerCommandContainer;
+import com.nure.ua.application.ApplicationContext;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class Server extends Thread {
-    private final ClientContainer clientContainer;
-    public Server(ClientContainer clientContainer) {
-        this.clientContainer = clientContainer;
+public class Server {
+    private static final ServerCommandContainer commands;
+
+    static {
+        commands = new ServerCommandContainer();
     }
 
-//    public void testFunc() throws Exception {
+    public static ServerCommandContainer getCommands() {
+        return commands;
+    }
+
+    public static void main(String[] args) throws Exception {
+        new ApplicationContext().config();
+        new Server().run();
+    }
+
+    //    public void testFunc() throws Exception {
 //        var users = new User[]{
 //                new User(1, "Oleksandr", "ch", "p"),
 //                new User(2, "Andrew", "us", "p"),
@@ -51,12 +65,11 @@ public class Server extends Thread {
 //
 //    }
 
-    @Override
     public void run() {
         try (var server = new ServerSocket(4004)) {
             System.out.println("Server is running.");
             while (!server.isClosed()) {
-                clientContainer.addClient(server.accept());
+                ClientContainer.addClient(server.accept());
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -64,4 +77,5 @@ public class Server extends Thread {
             System.out.println("Server has been closed.");
         }
     }
+
 }

@@ -1,6 +1,5 @@
 package com.nure.ua.a_serverSide.serverCommand;
 
-import com.nure.ua.a_serverSide.ClientContainer;
 import com.nure.ua.exception.ServiceException;
 import com.nure.ua.exchangeData.DataPack;
 import com.nure.ua.exchangeData.Request;
@@ -15,8 +14,7 @@ public class SignUpCommand extends Command {
     private final MessageService messageService;
     private static final String CMD = "auth";
 
-    public SignUpCommand(ClientContainer container, UserService userService, MessageService messageService) {
-        super(container);
+    public SignUpCommand(UserService userService, MessageService messageService) {
         this.userService = userService;
         this.messageService = messageService;
     }
@@ -25,9 +23,9 @@ public class SignUpCommand extends Command {
     public void execute(Request request, Session session) {
         DataPack dp = new DataPack();
 
-        String login = (String) request.data.args.get("LOGIN");
-        String password = (String) request.data.args.get("PASSWORD");
-        String name = (String) request.data.args.get("NAME");
+        String login = (String) request.data.getArgs().get("LOGIN");
+        String password = (String) request.data.getArgs().get("PASSWORD");
+        String name = (String) request.data.getArgs().get("NAME");
 
         if (login == null || password == null || name == null) {
             dp.setFailState("Not enough arguments");
@@ -52,8 +50,8 @@ public class SignUpCommand extends Command {
             } else {
                 session.setUser(newUser);
                 dp.command = CMD;
-                dp.args.put("user", newUser);
-                dp.args.put("allmessages", messageService.getAllMessagesWithUser(newUser));
+                dp.getArgs().put("user", newUser);
+                dp.getArgs().put("allmessages", messageService.getAllMessagesWithUser(newUser));
             }
 
         } catch (ServiceException ex) {
