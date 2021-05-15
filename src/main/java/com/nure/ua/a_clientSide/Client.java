@@ -2,6 +2,7 @@ package com.nure.ua.a_clientSide.application;
 
 import com.nure.ua.a_clientSide.ServerReader;
 import com.nure.ua.controller.Controller;
+import com.nure.ua.exchangeData.Response;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,13 +24,13 @@ public class Client extends Application {
     private static final String address = "localhost";
     private static final int port = 4004;
 
-    public void receiveData(String string) {
+    public void receiveData(Response response) {
 
         while (loader == null || loader.getController() == null) {
             Thread.onSpinWait();
         }
 
-        loader.<Controller>getController().receiveData(string);
+        loader.<Controller>getController().receiveData(response);
     }
 
 

@@ -1,6 +1,8 @@
 package com.nure.ua.controller;
 
+import com.google.gson.Gson;
 import com.nure.ua.exchangeData.Request;
+import com.nure.ua.exchangeData.Response;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -77,12 +79,10 @@ public abstract class Controller implements Initializable {
     }
 
     protected void sendToServer(Request request) {
-        String reqJson = null;  // requestToJson(request);
-        writer.println(reqJson);
-        System.out.println("send " + reqJson);
+        writer.println(new Gson().toJson(request));
     }
 
-    public abstract void receiveData(String string);
+    public abstract void receiveData(Response response);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

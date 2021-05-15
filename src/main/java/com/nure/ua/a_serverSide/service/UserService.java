@@ -1,7 +1,7 @@
 package com.nure.ua.service;
 
 import com.nure.ua.model.entity.User;
-import com.nure.ua.exception.ServiceException;
+import com.nure.ua.a_serverSide.exception.ServiceException;
 
 public interface UserService {
     User getUserByLoginPassword(String login, String password) throws ServiceException;

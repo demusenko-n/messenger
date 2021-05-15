@@ -1,6 +1,6 @@
 package com.nure.ua.model;
 
-import com.nure.ua.exception.ConnectionException;
+import com.nure.ua.a_serverSide.exception.ConnectionException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

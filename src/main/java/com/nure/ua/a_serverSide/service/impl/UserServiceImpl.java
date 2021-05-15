@@ -2,9 +2,9 @@ package com.nure.ua.service.impl;
 
 import com.nure.ua.model.ConnectionPool;
 import com.nure.ua.model.entity.User;
-import com.nure.ua.exception.ConnectionException;
-import com.nure.ua.exception.RepositoryException;
-import com.nure.ua.exception.ServiceException;
+import com.nure.ua.a_serverSide.exception.ConnectionException;
+import com.nure.ua.a_serverSide.exception.RepositoryException;
+import com.nure.ua.a_serverSide.exception.ServiceException;
 import com.nure.ua.model.repository.impl.UserRepositoryImpl;
 import com.nure.ua.service.ServiceAbstract;
 import com.nure.ua.service.UserService;
