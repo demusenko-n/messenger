@@ -1,4 +1,4 @@
-package com.nure.ua.model.entity;
+package com.nure.ua.a_serverSide.model.entity;
 
 public class User extends Entity {
     private String name;

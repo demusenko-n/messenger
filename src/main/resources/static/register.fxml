@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nure.ua.controller.RegisterController">
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nure.ua.a_clientSide.controller.RegisterController">
     <AnchorPane fx:id="mainWindow" prefHeight="362.0" prefWidth="598.0" styleClass="auth-form" stylesheets="@styles/style.css">
         <Label alignment="CENTER" layoutX="237.0" layoutY="57.0" prefHeight="30.0" prefWidth="124.0" text="Registration">
             <font>
@@ -27,6 +27,11 @@
         <AnchorPane id="toolPanel" fx:id="toolPanel" prefHeight="30.0" prefWidth="598.0">
             <ImageView id="quit-btn" fitHeight="26.0" fitWidth="28.0" layoutX="571.0" layoutY="1.0" onMouseClicked="#onQuit" pickOnBounds="true" preserveRatio="true" />
         </AnchorPane>
+        <Label fx:id="errorLabel" textAlignment="CENTER"  alignment="CENTER" layoutX="169.0" layoutY="302.0" prefHeight="62.0" prefWidth="259.0" text="Label" textFill="RED" visible="false">
+            <font>
+                <Font name="System Bold" size="10.0" />
+            </font>
+        </Label>
         <Button layoutX="271.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#onSignUpAction" styleClass="action-btn" text="Sign up" />
     </AnchorPane>
 </SplitPane>

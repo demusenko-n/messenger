@@ -1,16 +1,25 @@
 package com.nure.ua;
 
+import com.google.gson.Gson;
 import com.nure.ua.exchangeData.DataPack;
-import com.nure.ua.exchangeData.Request;
 
 public class a_testSide {
     public static void main(String[] args) throws Exception {
-        Request req = new Request(new DataPack());
-        req.data.getArgs().put("key", "value");
+        DataPack dp = new DataPack();
+        dp.getArgs().put("key", "value");
+        dp.getArgs().put("number", 15);
+        dp.command = "cmd";
 
-        //ObjectMapper mapper = new JsonMapper();
-        //String reqAsString  = mapper.writeValueAsString(mapper);
+        Gson gson = new Gson();
+        String str = gson.toJson(dp);
 
-//        System.out.println(reqAsString);
+
+        System.out.println("JSON: " + str);
+
+
+        DataPack res = gson.fromJson(str, DataPack.class);
+
+
+        System.out.println("JSON: " + gson.toJson(res));
     }
 }

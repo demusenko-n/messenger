@@ -1,6 +1,6 @@
-package com.nure.ua.service;
+package com.nure.ua.a_serverSide.service;
 
-import com.nure.ua.model.entity.User;
+import com.nure.ua.a_serverSide.model.entity.User;
 import com.nure.ua.a_serverSide.exception.ServiceException;
 
 public interface UserService {

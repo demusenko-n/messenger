@@ -10,8 +10,7 @@ public abstract class Command {
 
     protected void sendResponse(Response response) {
         var clientSession = ClientContainer.getClientBySessionId(response.getSession().getId());
-        //clientSession.ifPresent(session -> session.sendData(convertToJson(response)));
-        clientSession.ifPresent(session -> session.sendData("DATA"));
+        clientSession.ifPresent(session -> session.sendResponse(response));
     }
 
 }

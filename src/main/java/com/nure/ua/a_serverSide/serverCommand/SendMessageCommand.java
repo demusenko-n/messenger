@@ -1,15 +1,15 @@
 package com.nure.ua.a_serverSide.serverCommand;
 
 import com.nure.ua.a_serverSide.ClientContainer;
-import com.nure.ua.exception.ServiceException;
+import com.nure.ua.a_serverSide.exception.ServiceException;
 import com.nure.ua.exchangeData.DataPack;
 import com.nure.ua.exchangeData.Request;
 import com.nure.ua.exchangeData.Response;
 import com.nure.ua.exchangeData.Session;
-import com.nure.ua.model.entity.Message;
-import com.nure.ua.model.entity.User;
-import com.nure.ua.service.MessageService;
-import com.nure.ua.service.UserService;
+import com.nure.ua.a_serverSide.model.entity.Message;
+import com.nure.ua.a_serverSide.model.entity.User;
+import com.nure.ua.a_serverSide.service.MessageService;
+import com.nure.ua.a_serverSide.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.nure.ua.model;
+package com.nure.ua.a_serverSide.model;
 
 import com.nure.ua.a_serverSide.exception.ConnectionException;
 
@@ -39,10 +39,6 @@ public final class ConnectionPool {
             } catch (SQLException ex) {
                 throw new ConnectionException(ex.getMessage());
             }
-        }
-
-        public Connection getConnection() {
-            return connection;
         }
 
         public ConnectionPoolElem(Connection connection) {

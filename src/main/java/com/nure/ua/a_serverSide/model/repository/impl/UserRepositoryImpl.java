@@ -1,11 +1,11 @@
-package com.nure.ua.model.repository.impl;
+package com.nure.ua.a_serverSide.model.repository.impl;
 
-import com.nure.ua.model.ConnectionPool;
-import com.nure.ua.model.entity.User;
+import com.nure.ua.a_serverSide.model.ConnectionPool;
+import com.nure.ua.a_serverSide.model.entity.User;
 import com.nure.ua.a_serverSide.exception.ConnectionException;
 import com.nure.ua.a_serverSide.exception.RepositoryException;
-import com.nure.ua.model.repository.RepositoryAbstract;
-import com.nure.ua.model.repository.UserRepository;
+import com.nure.ua.a_serverSide.model.repository.RepositoryAbstract;
+import com.nure.ua.a_serverSide.model.repository.UserRepository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,7 +50,7 @@ public class UserRepositoryImpl extends RepositoryAbstract<User> implements User
     @Override
     public void create(User item) throws RepositoryException {
         try {
-            con.executeDml(INSERT_INTO, item.getLogin(), item.getName(), item.getPassword());
+            con.executeDml(INSERT_INTO, item.getLogin(), item.getPassword(), item.getName());
         } catch (ConnectionException ex) {
             throw new RepositoryException(ex.getMessage());
         }

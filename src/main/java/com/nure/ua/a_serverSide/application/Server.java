@@ -2,7 +2,6 @@ package com.nure.ua.a_serverSide.application;
 
 import com.nure.ua.a_serverSide.ClientContainer;
 import com.nure.ua.a_serverSide.serverCommand.ServerCommandContainer;
-import com.nure.ua.application.ApplicationContext;
 
 import java.io.IOException;
 import java.net.ServerSocket;

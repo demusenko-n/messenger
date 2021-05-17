@@ -1,12 +1,12 @@
-package com.nure.ua.model.repository.impl;
+package com.nure.ua.a_serverSide.model.repository.impl;
 
-import com.nure.ua.model.ConnectionPool;
-import com.nure.ua.model.entity.Message;
-import com.nure.ua.model.entity.User;
+import com.nure.ua.a_serverSide.model.ConnectionPool;
+import com.nure.ua.a_serverSide.model.entity.Message;
+import com.nure.ua.a_serverSide.model.entity.User;
 import com.nure.ua.a_serverSide.exception.ConnectionException;
 import com.nure.ua.a_serverSide.exception.RepositoryException;
-import com.nure.ua.model.repository.MessageRepository;
-import com.nure.ua.model.repository.RepositoryAbstract;
+import com.nure.ua.a_serverSide.model.repository.MessageRepository;
+import com.nure.ua.a_serverSide.model.repository.RepositoryAbstract;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

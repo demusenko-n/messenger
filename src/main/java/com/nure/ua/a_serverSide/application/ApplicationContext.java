@@ -1,14 +1,13 @@
-package com.nure.ua.application;
+package com.nure.ua.a_serverSide.application;
 
-import com.nure.ua.a_serverSide.application.Server;
 import com.nure.ua.a_serverSide.serverCommand.SendMessageCommand;
-import com.nure.ua.a_serverSide.serverCommand.SignUpCommand;
 import com.nure.ua.a_serverSide.serverCommand.SignInCommand;
-import com.nure.ua.model.ConnectionPool;
-import com.nure.ua.service.MessageService;
-import com.nure.ua.service.UserService;
-import com.nure.ua.service.impl.MessageServiceImpl;
-import com.nure.ua.service.impl.UserServiceImpl;
+import com.nure.ua.a_serverSide.serverCommand.SignUpCommand;
+import com.nure.ua.a_serverSide.model.ConnectionPool;
+import com.nure.ua.a_serverSide.service.MessageService;
+import com.nure.ua.a_serverSide.service.UserService;
+import com.nure.ua.a_serverSide.service.impl.MessageServiceImpl;
+import com.nure.ua.a_serverSide.service.impl.UserServiceImpl;
 
 import java.io.FileReader;
 import java.io.IOException;

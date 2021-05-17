@@ -1,6 +1,6 @@
-package com.nure.ua.model.repository;
+package com.nure.ua.a_serverSide.model.repository;
 
-import com.nure.ua.model.entity.Entity;
+import com.nure.ua.a_serverSide.model.entity.Entity;
 import com.nure.ua.a_serverSide.exception.RepositoryException;
 
 import java.util.List;

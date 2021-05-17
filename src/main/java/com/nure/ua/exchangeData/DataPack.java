@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataPack {
+    private static final String failStateMsg = "ex";
     public String command;
 
     public Map<String, Object> getArgs() {
@@ -18,7 +19,11 @@ public class DataPack {
     }
 
     public void setFailState(String message) {
-        command = "exception";
+        command = failStateMsg;
         args.put("message", message);
+    }
+
+    public boolean isFailState() {
+        return command.equals(failStateMsg);
     }
 }

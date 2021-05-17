@@ -1,7 +1,7 @@
 package com.nure.ua.a_serverSide;
 
 import com.nure.ua.exchangeData.Session;
-import com.nure.ua.model.entity.User;
+import com.nure.ua.a_serverSide.model.entity.User;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -15,7 +15,7 @@ public class ClientContainer {
     }
 
     public static List<Session> getSessionsOfUser(User user) {
-        return ClientContainer.getClientsByUserId(user.getId()).stream().map(clientSession -> clientSession.session).collect(Collectors.toList());
+        return ClientContainer.getClientsByUserId(user.getId()).stream().map(clientSession -> clientSession.getSession()).collect(Collectors.toList());
     }
 
     private static int counter = 0;
@@ -26,13 +26,14 @@ public class ClientContainer {
     }
 
     public static Optional<ClientSession> getClientBySessionId(int id) {
-        return clients.stream().filter(x -> x.session.getId() == id).findFirst();
+        return clients.stream().filter(x -> x.getSession().getId() == id).findFirst();
     }
 
     public static List<ClientSession> getClientsByUserId(int id) {
-        return clients.stream().filter(x -> (x.session.getUser() != null && x.session.getUser().getId() == id)).collect(Collectors.toList());
+        return clients.stream().filter(x -> (x.getSession().getUser() != null && x.getSession().getUser().getId() == id)).collect(Collectors.toList());
     }
-    static{
+
+    static {
         clients = new ArrayList<>();
     }
 

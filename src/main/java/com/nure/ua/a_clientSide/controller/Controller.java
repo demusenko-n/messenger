@@ -1,41 +1,39 @@
-package com.nure.ua.controller;
+package com.nure.ua.a_clientSide.controller;
 
 import com.google.gson.Gson;
+import com.nure.ua.a_clientSide.Client;
 import com.nure.ua.exchangeData.Request;
 import com.nure.ua.exchangeData.Response;
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public abstract class Controller implements Initializable {
-
-    private PrintWriter writer;
     private double xOffset;
     private double yOffset;
+    protected Client application;
+
+    public void setApplication(Client application) {
+        this.application = application;
+    }
 
     @FXML
     private void onWindowPressed(MouseEvent mouseEvent) {
-        Window window = getStageFromEvent(mouseEvent);
+        Window window = application.getStage();
         xOffset = window.getX() - mouseEvent.getScreenX();
         yOffset = window.getY() - mouseEvent.getScreenY();
     }
 
     @FXML
     private void onWindowDragged(MouseEvent mouseEvent) {
-        Window window = getStageFromEvent(mouseEvent);
+        Window window = application.getStage();
         window.setX(mouseEvent.getScreenX() + xOffset);
         window.setY(mouseEvent.getScreenY() + yOffset);
     }
@@ -56,33 +54,16 @@ public abstract class Controller implements Initializable {
         exit();
     }
 
-    public void setWriter(PrintWriter writer) {
-        this.writer = writer;
-    }
-
     protected void exit() {
         Platform.exit();
         System.exit(0);
     }
 
-    protected Stage getStageFromEvent(Event event) {
-        return (Stage) ((Node) event.getSource()).getScene().getWindow();
-    }
-
-    protected void switchCurrentFxml(String stringPath, Stage stage) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(stringPath));
-        stage.setScene(new Scene(loader.load()));
-
-        Controller controller = loader.getController();
-        controller.setWriter(writer);
-    }
-
     protected void sendToServer(Request request) {
-        writer.println(new Gson().toJson(request));
+        application.getWriter().println(new Gson().toJson(request));
     }
 
-    public abstract void receiveData(Response response);
+    public abstract void receiveData(Response response) throws IOException;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

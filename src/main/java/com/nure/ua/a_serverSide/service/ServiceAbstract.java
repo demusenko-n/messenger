@@ -1,7 +1,7 @@
-package com.nure.ua.service;
+package com.nure.ua.a_serverSide.service;
 
-import com.nure.ua.model.ConnectionPool;
-import com.nure.ua.model.entity.Entity;
+import com.nure.ua.a_serverSide.model.ConnectionPool;
+import com.nure.ua.a_serverSide.model.entity.Entity;
 
 public abstract class ServiceAbstract<T extends Entity>{
     private final ConnectionPool pool;
