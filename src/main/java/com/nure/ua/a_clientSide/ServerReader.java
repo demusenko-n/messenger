@@ -1,8 +1,8 @@
 package com.nure.ua.a_clientSide;
 
 
-import com.google.gson.Gson;
-import com.nure.ua.exchangeData.Response;
+import com.nure.ua.exchangeData.GsonCreator;
+import com.nure.ua.exchangeData.response.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,14 +17,15 @@ public class ServerReader extends Thread {
 
     @Override
     public void run() {
-        Gson gson = new Gson();
         try {
             //noinspection InfiniteLoopStatement
             while (true) {
                 String serverWord = in.readLine();
-                client.receiveData(gson.fromJson(serverWord, Response.class));
+                if(serverWord != null)
+                    client.receiveData(GsonCreator.getInstance().fromJson(serverWord, Response.class));
             }
         } catch (IOException ex) {
+
             System.out.println(ex.getMessage());
         }
 

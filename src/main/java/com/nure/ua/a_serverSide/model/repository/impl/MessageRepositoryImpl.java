@@ -171,10 +171,16 @@ public class MessageRepositoryImpl extends RepositoryAbstract<Message> implement
         return new Message(set.getInt("M_ID_MESSAGE"),
                 quoteId,
                 set.getString("M_CONTENT"),
-                new User(set.getInt("S_ID_USER"), set.getString("S_LOGIN"),
-                        set.getString("S_PASSWORD"), set.getString("S_NAME")),
-                new User(set.getInt("R_ID_USER"), set.getString("R_LOGIN"),
-                        set.getString("R_PASSWORD"), set.getString("R_NAME")),
+                new User(set.getInt("S_ID_USER"),
+                        set.getString("S_NAME"),
+                        set.getString("S_LOGIN"),
+                        set.getString("S_PASSWORD")),
+
+                new User(set.getInt("R_ID_USER"),
+                        set.getString("R_NAME"),
+                        set.getString("R_LOGIN"),
+                        set.getString("R_PASSWORD")),
+
                 set.getInt("M_STATUS_UNREAD"),
                 set.getInt("M_STATUS_EDITED"),
                 set.getTimestamp("M_TIME").toLocalDateTime());

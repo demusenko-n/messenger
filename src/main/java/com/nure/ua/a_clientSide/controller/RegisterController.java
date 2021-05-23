@@ -1,11 +1,13 @@
 package com.nure.ua.a_clientSide.controller;
 
+import com.google.gson.reflect.TypeToken;
 import com.nure.ua.Utility;
 import com.nure.ua.a_serverSide.model.entity.Message;
 import com.nure.ua.a_serverSide.model.entity.User;
-import com.nure.ua.exchangeData.DataPack;
 import com.nure.ua.exchangeData.Request;
-import com.nure.ua.exchangeData.Response;
+import com.nure.ua.exchangeData.dataPack.DataPack;
+import com.nure.ua.exchangeData.dataPack.DataPackImpl;
+import com.nure.ua.exchangeData.response.Response;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -42,13 +44,14 @@ public class RegisterController extends Controller {
         DataPack dp = response.getData();
         if (dp.isFailState()) {
             Platform.runLater(() -> {
-                errorLabel.setText((String) dp.getArgs().get("message"));
+                errorLabel.setText(dp.get("message", String.class));
                 errorLabel.setVisible(true);
             });
-        } else if (dp.command.equals("auth")) {
+        } else if (dp.getCommand().equals("auth")) {
+            Map<User, List<Message>> all_messages = dp.get("all_messages",
+                    new TypeToken<Map<User, List<Message>>>() {}.getType());
 
-            @SuppressWarnings("unchecked")
-            Map<User, List<Message>> all_messages = (Map<User, List<Message>>) dp.getArgs().get("all_messages");
+
             application.setAllMessages(all_messages);
             application.switchFxml(Utility.FXML_PATH_MAIN);
         }
@@ -76,8 +79,8 @@ public class RegisterController extends Controller {
         }
 
         if (isEverythingValid) {
-            DataPack dp = new DataPack();
-            dp.command = "sign_up";
+            DataPackImpl dp = new DataPackImpl();
+            dp.setCommand("sign_up");
 
             dp.getArgs().put("login", login);
             dp.getArgs().put("password", password);

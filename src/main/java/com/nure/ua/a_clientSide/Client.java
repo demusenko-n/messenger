@@ -4,9 +4,10 @@ import com.nure.ua.Utility;
 import com.nure.ua.a_clientSide.controller.Controller;
 import com.nure.ua.a_serverSide.model.entity.Message;
 import com.nure.ua.a_serverSide.model.entity.User;
-import com.nure.ua.exchangeData.Response;
-import com.nure.ua.exchangeData.Session;
+import com.nure.ua.exchangeData.response.Response;
+import com.nure.ua.exchangeData.session.Session;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -82,8 +83,9 @@ public class Client extends Application {
         Scene scene = new Scene(loader.load());
         controller = loader.getController();
         controller.setApplication(this);
+        controller.updateAllChats();
         scene.setFill(Color.TRANSPARENT);
-        stage.setScene(scene);
+        Platform.runLater(() -> stage.setScene(scene));
     }
 
     public static void main(String[] args) {

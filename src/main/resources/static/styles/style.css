@@ -22,5 +22,35 @@
     /*-fx-background-color: linear-gradient(to top, #ffffff, #b9b9b9, #777777, #3b3b3b, #000000);*/
     -fx-background-color: linear-gradient(to top, #ffffff, #f1f1f1, #e3e3e3, #d6d6d6, #c8c8c8);
     /*-fx-background-color: linear-gradient(to bottom, #96f3ff, #b9f4ff, #dbf5ff, #f3f8ff, #ffffff);*/
+}
 
+.scroll-pane {
+    -fx-focus-color: transparent;
+    -fx-background-color: -fx-faint-focus-color, -fx-focus-color, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: -2, -0.3, 1, 2;
+    -fx-background-radius: 7, 6, 4, 3;
+    -fx-text-alignment: center;
+    -fx-border-width: 0;
+}
+
+.scroll-pane .label {
+    -fx-font-size: 15;
+
+}
+
+.scroll-pane .label {
+    -fx-font-size: 15;
+
+}
+
+.chatBox:hover {
+    -fx-background-color: #c62a2a;
+}
+
+.chatBox {
+    -fx-background-color: #ffffff;
+}
+
+.chatBox:chosen {
+    -fx-background-color: #00227b;
 }

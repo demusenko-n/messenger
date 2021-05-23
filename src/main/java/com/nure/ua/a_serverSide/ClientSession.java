@@ -1,11 +1,11 @@
 package com.nure.ua.a_serverSide;
 
-import com.google.gson.Gson;
 import com.nure.ua.a_serverSide.application.Server;
 import com.nure.ua.a_serverSide.serverCommand.Command;
+import com.nure.ua.exchangeData.GsonCreator;
 import com.nure.ua.exchangeData.Request;
-import com.nure.ua.exchangeData.Response;
-import com.nure.ua.exchangeData.Session;
+import com.nure.ua.exchangeData.response.Response;
+import com.nure.ua.exchangeData.session.Session;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,6 @@ public class ClientSession extends Thread {
     private final Socket client;
     private final Session session;
     private final PrintWriter outputStream;
-    private final Gson gson;
 
     public Session getSession() {
         return session;
@@ -28,7 +27,6 @@ public class ClientSession extends Thread {
         this.client = client;
         this.session = session;
         outputStream = new PrintWriter(new OutputStreamWriter(client.getOutputStream()), true);
-        gson = new Gson();
     }
 
     @Override
@@ -39,9 +37,16 @@ public class ClientSession extends Thread {
             System.out.println("User connected");
             while (!client.isClosed()) {
                 String fkJson = in.readLine();
-                Request req = gson.fromJson(fkJson, Request.class);
-                Command cmd = Server.getCommands().getCommand(req.data.command);
+
+                Request req = GsonCreator.getInstance().fromJson(fkJson, Request.class);
+
+                Command cmd = Server.getCommands().getCommand(req.data.getCommand());
+                if (cmd == null) {
+                    throw new IOException();
+                }
                 cmd.execute(req, session);
+
+
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -57,6 +62,6 @@ public class ClientSession extends Thread {
     }
 
     public void sendResponse(Response response) {
-        sendStr(gson.toJson(response));
+        sendStr(GsonCreator.getInstance().toJson(response));
     }
 }

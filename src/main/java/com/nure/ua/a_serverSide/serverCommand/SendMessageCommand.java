@@ -2,14 +2,14 @@ package com.nure.ua.a_serverSide.serverCommand;
 
 import com.nure.ua.a_serverSide.ClientContainer;
 import com.nure.ua.a_serverSide.exception.ServiceException;
-import com.nure.ua.exchangeData.DataPack;
-import com.nure.ua.exchangeData.Request;
-import com.nure.ua.exchangeData.Response;
-import com.nure.ua.exchangeData.Session;
 import com.nure.ua.a_serverSide.model.entity.Message;
 import com.nure.ua.a_serverSide.model.entity.User;
 import com.nure.ua.a_serverSide.service.MessageService;
 import com.nure.ua.a_serverSide.service.UserService;
+import com.nure.ua.exchangeData.dataPack.DataPackImpl;
+import com.nure.ua.exchangeData.Request;
+import com.nure.ua.exchangeData.response.Response;
+import com.nure.ua.exchangeData.session.Session;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +18,7 @@ public class SendMessageCommand extends Command {
     private final UserService userService;
     private final MessageService messageService;
     private static final String CMD = "newmessage";
+
     public SendMessageCommand(UserService userService, MessageService messageService) {
         this.userService = userService;
         this.messageService = messageService;
@@ -25,15 +26,12 @@ public class SendMessageCommand extends Command {
 
     @Override
     public void execute(Request request, Session session) {
-        DataPack responsePack = new DataPack();
+        DataPackImpl responsePack = new DataPackImpl();
 
-        Integer idSender, idReceiver, quoteMessageId;
-        String content;
-
-        idSender = (Integer) request.data.getArgs().get("sender");
-        idReceiver = (Integer) request.data.getArgs().get("receiver");
-        quoteMessageId = (Integer) request.data.getArgs().get("quote");
-        content = (String) request.data.getArgs().get("content");
+        Integer idSender = request.data.get("sender", Integer.class);
+        Integer idReceiver = request.data.get("receiver", Integer.class);
+        Integer quoteMessageId = request.data.get("quote", Integer.class);
+        String content = request.data.get("content", String.class);
 
         if (idSender == null || idReceiver == null || content == null) {
             responsePack.setFailState("Not enough arguments");
@@ -55,7 +53,7 @@ public class SendMessageCommand extends Command {
             Message message = new Message(quoteMessageId, content, sender, receiver, 1, 0, LocalDateTime.now());
             messageService.createMessage(message);
 
-            responsePack.command = CMD;
+            responsePack.setCommand(CMD);
             responsePack.getArgs().put("message", message);
 
             List<Session> sessions = ClientContainer.getSessionsOfUser(receiver);

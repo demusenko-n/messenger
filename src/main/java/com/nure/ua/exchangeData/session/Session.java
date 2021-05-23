@@ -1,4 +1,5 @@
-package com.nure.ua.exchangeData;
+package com.nure.ua.exchangeData.session;
+
 import com.nure.ua.a_serverSide.model.entity.User;
 
 public class Session {
@@ -21,9 +22,9 @@ public class Session {
         this.user = user;
     }
 
-
     public Session(User user, int id) {
         this.user = user;
         this.id = id;
     }
 }
+

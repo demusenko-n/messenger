@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <ScrollPane prefHeight="400.0" prefWidth="199.0">
-        <VBox prefHeight="396.0" prefWidth="195.0"/>
-    </ScrollPane>
-</AnchorPane>
+<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nure.ua.a_clientSide.controller.MainController">
+    <AnchorPane fx:id="mainWindow" prefHeight="410.0" prefWidth="598.0" stylesheets="@styles/style.css">
+        <AnchorPane id="toolPanel" fx:id="toolPanel" prefHeight="30.0" prefWidth="598.0">
+            <ImageView id="quit-btn" fitHeight="26.0" fitWidth="28.0" layoutX="571.0" layoutY="1.0" onMouseClicked="#onQuit" pickOnBounds="true" preserveRatio="true" />
+        </AnchorPane>
+        <AnchorPane fx:id="windowNoTool" layoutY="30.0" prefHeight="368.0" prefWidth="598.0">
+            <Line fx:id="line" endX="-26.599990844726562" endY="318.0" layoutX="192.0" layoutY="50.0" startX="-26.599990844726562" startY="-49.99999237060547" strokeWidth="2.0" />
+            <ScrollPane fx:id="chatsScrollPane" prefHeight="370.0" prefWidth="165.0">
+                <VBox fx:id="chatsVbox" prefHeight="368.0" prefWidth="162.0" />
+            </ScrollPane>
+            <ScrollPane fx:id="messagesScrollPane" layoutX="166.0" prefHeight="369.0" prefWidth="431.0">
+                <VBox fx:id="messagesVbox" prefHeight="366.0" prefWidth="428.0" />
+            </ScrollPane>
+        </AnchorPane>
+    </AnchorPane>
+</SplitPane>

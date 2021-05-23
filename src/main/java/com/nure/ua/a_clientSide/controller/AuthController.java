@@ -1,11 +1,13 @@
 package com.nure.ua.a_clientSide.controller;
 
+import com.google.gson.reflect.TypeToken;
 import com.nure.ua.Utility;
 import com.nure.ua.a_serverSide.model.entity.Message;
 import com.nure.ua.a_serverSide.model.entity.User;
-import com.nure.ua.exchangeData.DataPack;
 import com.nure.ua.exchangeData.Request;
-import com.nure.ua.exchangeData.Response;
+import com.nure.ua.exchangeData.dataPack.DataPack;
+import com.nure.ua.exchangeData.dataPack.DataPackImpl;
+import com.nure.ua.exchangeData.response.Response;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -17,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 public class AuthController extends Controller {
-
     @FXML
     private TextField loginTextField;
     @FXML
@@ -51,8 +52,8 @@ public class AuthController extends Controller {
             errorMsg += "Password must contain 8-30 characters, at least one letter and one number\n";
         }
         if (isEverythingValid) {
-            DataPack dp = new DataPack();
-            dp.command = "sign_in";
+            DataPackImpl dp = new DataPackImpl();
+            dp.setCommand("sign_in");
             dp.getArgs().put("login", login);
             dp.getArgs().put("password", password);
 
@@ -69,12 +70,15 @@ public class AuthController extends Controller {
         DataPack dp = response.getData();
         if (dp.isFailState()) {
             Platform.runLater(() -> {
-                errorLabel.setText((String) dp.getArgs().get("message"));
+                errorLabel.setText(dp.get("message", String.class));
                 errorLabel.setVisible(true);
             });
-        } else if (dp.command.equals("auth")) {
-            @SuppressWarnings("unchecked")
-            Map<User, List<Message>> all_messages = (Map<User, List<Message>>) dp.getArgs().get("all_messages");
+        } else if (dp.getCommand().equals("auth")) {
+            Map<User, List<Message>> all_messages = dp.get("all_messages",
+                    new TypeToken<Map<User, List<Message>>>() {
+                    }.getType());
+
+
             application.setAllMessages(all_messages);
             application.switchFxml(Utility.FXML_PATH_MAIN);
         }

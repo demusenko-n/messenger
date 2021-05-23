@@ -1,6 +1,6 @@
 package com.nure.ua.a_serverSide;
 
-import com.nure.ua.exchangeData.Session;
+import com.nure.ua.exchangeData.session.Session;
 import com.nure.ua.a_serverSide.model.entity.User;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class ClientContainer {
     public static Optional<ClientSession> getClientBySessionId(int id) {
         return clients.stream().filter(x -> x.getSession().getId() == id).findFirst();
     }
-
+    
     public static List<ClientSession> getClientsByUserId(int id) {
         return clients.stream().filter(x -> (x.getSession().getUser() != null && x.getSession().getUser().getId() == id)).collect(Collectors.toList());
     }

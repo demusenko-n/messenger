@@ -1,12 +1,12 @@
-package com.nure.ua.exchangeData;
+package com.nure.ua.exchangeData.response;
 
+import com.nure.ua.exchangeData.session.Session;
+import com.nure.ua.exchangeData.dataPack.DataPack;
 
 public class Response {
 
     private Session session;
-
     private DataPack data;
-
 
     public Session getSession() {
         return session;
@@ -29,4 +29,3 @@ public class Response {
         this.session = session;
     }
 }
-
