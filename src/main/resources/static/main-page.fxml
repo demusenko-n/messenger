@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -17,9 +18,11 @@
             <ScrollPane fx:id="chatsScrollPane" prefHeight="370.0" prefWidth="165.0">
                 <VBox fx:id="chatsVbox" prefHeight="368.0" prefWidth="162.0" />
             </ScrollPane>
-            <ScrollPane fx:id="messagesScrollPane" layoutX="166.0" prefHeight="369.0" prefWidth="431.0">
-                <VBox fx:id="messagesVbox" prefHeight="366.0" prefWidth="428.0" />
+            <ScrollPane fx:id="messagesScrollPane" layoutX="166.0" prefHeight="330.0" prefWidth="431.0">
+                <VBox fx:id="messagesVbox" prefHeight="328.0" prefWidth="428.0" />
             </ScrollPane>
+         <Line fx:id="line1" endX="-36.00001525878906" endY="270.4000244140625" layoutX="202.0" layoutY="60.0" startX="395.20001220703125" startY="270.4000244140625" strokeWidth="2.0" />
+         <TextField fx:id="messageTextField" onAction="#onMessageTextFieldAction" layoutX="167.0" layoutY="331.0" prefHeight="37.0" prefWidth="431.0" />
         </AnchorPane>
     </AnchorPane>
 </SplitPane>

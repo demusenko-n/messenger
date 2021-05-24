@@ -6,13 +6,14 @@ import com.nure.ua.a_serverSide.model.entity.Message;
 import com.nure.ua.a_serverSide.model.entity.User;
 import com.nure.ua.a_serverSide.service.MessageService;
 import com.nure.ua.a_serverSide.service.UserService;
-import com.nure.ua.exchangeData.dataPack.DataPackImpl;
 import com.nure.ua.exchangeData.Request;
+import com.nure.ua.exchangeData.dataPack.DataPackImpl;
 import com.nure.ua.exchangeData.response.Response;
 import com.nure.ua.exchangeData.session.Session;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SendMessageCommand extends Command {
     private final UserService userService;
@@ -57,7 +58,9 @@ public class SendMessageCommand extends Command {
             responsePack.getArgs().put("message", message);
 
             List<Session> sessions = ClientContainer.getSessionsOfUser(receiver);
-            sessions.add(session);
+            sessions.addAll(ClientContainer.getSessionsOfUser(sender));
+            sessions = sessions.stream().distinct().collect(Collectors.toList());
+
 
             for (Session s : sessions) {
                 sendResponse(new Response(responsePack, s));

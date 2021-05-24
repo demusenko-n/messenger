@@ -44,7 +44,7 @@
 }
 
 .chatBox:hover {
-    -fx-background-color: #c62a2a;
+    -fx-background-color: #e5a1a1;
 }
 
 .chatBox {
@@ -52,5 +52,10 @@
 }
 
 .chatBox:chosen {
-    -fx-background-color: #00227b;
+    -fx-background-color: #9aa1b6;
+}
+
+.messageBox .label{
+    -fx-border-width: 0;
+    -fx-border-color: red;
 }

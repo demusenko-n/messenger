@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class ChatPane extends AnchorPane {
     static final public int sizeX = 100;
-    static final public int sizeY = 30;
+    static final public int sizeY = 50;
 
     private static final PseudoClass CHOSEN_PSEUDO_CLASS = PseudoClass.getPseudoClass("chosen");
 
@@ -47,6 +47,8 @@ public class ChatPane extends AnchorPane {
         label.setMaxWidth(Double.MAX_VALUE);
         AnchorPane.setLeftAnchor(label, 0.0);
         AnchorPane.setRightAnchor(label, 0.0);
+        AnchorPane.setBottomAnchor(label, 0.0);
+        AnchorPane.setTopAnchor(label, 0.0);
         label.setAlignment(Pos.CENTER);
 
         label.setText(user.getPassword());

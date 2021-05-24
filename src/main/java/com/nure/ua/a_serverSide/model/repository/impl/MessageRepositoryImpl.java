@@ -31,18 +31,21 @@ public class MessageRepositoryImpl extends RepositoryAbstract<Message> implement
             "FROM MESSAGES m " +
             "INNER JOIN USERS s ON(m.SENDER_ID=s.ID_USER) " +
             "INNER JOIN USERS r ON(m.RECEIVER_ID=r.ID_USER) ";
+
+    private static final String ORDER_BY = " ORDER BY m.TIME";
+
     private static final String SELECT_BY_ID = SELECT_ALL +
-            "WHERE m.ID_MESSAGE=?";
+            "WHERE m.ID_MESSAGE=?" + ORDER_BY;
     private static final String SELECT_BY_RECEIVER_ID = SELECT_ALL +
-            "WHERE m.RECEIVER_ID=?";
+            "WHERE m.RECEIVER_ID=?" + ORDER_BY;
     private static final String SELECT_BY_USER_ID = SELECT_ALL +
-            "WHERE m.RECEIVER_ID=? OR m.SENDER_ID=?";
+            "WHERE m.RECEIVER_ID=? OR m.SENDER_ID=?" + ORDER_BY;
     private static final String SELECT_BY_SENDER_ID_AND_RECEIVER_ID = SELECT_ALL +
-            "WHERE m.SENDER_ID=? AND m.RECEIVER_ID=? OR m.SENDER_ID=? AND m.RECEIVER_ID=?";
+            "WHERE m.SENDER_ID=? AND m.RECEIVER_ID=? OR m.SENDER_ID=? AND m.RECEIVER_ID=?" + ORDER_BY;
     private static final String SELECT_BY_CONTENT = SELECT_ALL +
-            "WHERE UPPER(m.CONTENT)=UPPER(?)";
+            "WHERE UPPER(m.CONTENT)=UPPER(?)" + ORDER_BY;
     private static final String SELECT_THAT_CONTAINS = SELECT_ALL +
-            "WHERE UPPER(m.CONTENT) LIKE '%'||UPPER(?)||'%'";
+            "WHERE UPPER(m.CONTENT) LIKE '%'||UPPER(?)||'%'" + ORDER_BY;
     private static final String DELETE_BY_ID = "DELETE FROM MESSAGES WHERE ID_MESSAGE=?";
     private static final String UPDATE_REMOVE_ALL_QUOTES = "UPDATE MESSAGES SET QUOTE_MESSAGE_ID = NULL " +
             "WHERE QUOTE_MESSAGE_ID=?";
@@ -112,7 +115,7 @@ public class MessageRepositoryImpl extends RepositoryAbstract<Message> implement
 
     @Override
     public List<Message> getAll() throws RepositoryException {
-        try (var set = con.executeSql(SELECT_ALL)) {
+        try (var set = con.executeSql(SELECT_ALL + ORDER_BY)) {
             return readListFromSet(set);
         } catch (ConnectionException | SQLException ex) {
             throw new RepositoryException(ex.getMessage());

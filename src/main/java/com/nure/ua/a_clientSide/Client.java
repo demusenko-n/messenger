@@ -19,10 +19,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Client extends Application {
+
+    public static void main(String[] args) {
+        launch();
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        this.stage = stage;
+        stage.initStyle(StageStyle.TRANSPARENT);
+        switchFxml(Utility.FXML_PATH_AUTH);
+        stage.show();
+    }
+
     private PrintWriter writer;
     private volatile Controller controller;
     private Stage stage;
@@ -37,6 +51,22 @@ public class Client extends Application {
 
     public void setAllMessages(Map<User, List<Message>> allMessages) {
         this.allMessages = allMessages;
+    }
+
+    public void addMessage(Message message) {
+        User otherUser;
+        if (message.getSender().getId() == session.getUser().getId()) {
+            otherUser = message.getReceiver();
+        } else {
+            otherUser = message.getSender();
+        }
+        if (allMessages.containsKey(otherUser)) {
+            allMessages.get(otherUser).add(message);
+        } else {
+            List<Message> list = new ArrayList<>();
+            list.add(message);
+            allMessages.put(otherUser, list);
+        }
     }
 
     public PrintWriter getWriter() {
@@ -62,20 +92,19 @@ public class Client extends Application {
         controller.receiveData(response);
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        this.stage = stage;
-        stage.initStyle(StageStyle.TRANSPARENT);
-        switchFxml(Utility.FXML_PATH_AUTH);
-        stage.show();
-    }
 
     @Override
-    public void init() throws IOException {
-        Socket clientSocket = new Socket(address, port);
-        writer = new PrintWriter(clientSocket.getOutputStream(), true);
-        Thread serverReader = new ServerReader(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())), this);
-        serverReader.start();
+    public void init() {
+        try {
+            Socket clientSocket = new Socket(address, port);
+            writer = new PrintWriter(clientSocket.getOutputStream(), true);
+            Thread serverReader = new ServerReader(new BufferedReader(new InputStreamReader(clientSocket.getInputStream())), this);
+            serverReader.start();
+        } catch (IOException ex) {
+            System.err.println("Server is offline.");
+            Platform.exit();
+        }
+
     }
 
     public void switchFxml(String stringPath) throws IOException {
@@ -88,7 +117,5 @@ public class Client extends Application {
         Platform.runLater(() -> stage.setScene(scene));
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+
 }

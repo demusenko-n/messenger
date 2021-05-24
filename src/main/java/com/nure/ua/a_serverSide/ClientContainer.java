@@ -15,7 +15,7 @@ public class ClientContainer {
     }
 
     public static List<Session> getSessionsOfUser(User user) {
-        return ClientContainer.getClientsByUserId(user.getId()).stream().map(clientSession -> clientSession.getSession()).collect(Collectors.toList());
+        return ClientContainer.getClientsByUserId(user.getId()).stream().map(ClientSession::getSession).collect(Collectors.toList());
     }
 
     private static int counter = 0;

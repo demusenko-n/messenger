@@ -26,5 +26,15 @@ public class Session {
         this.user = user;
         this.id = id;
     }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Session && ((Session)obj).getId() == id;
+    }
 }
 
