@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane id="main-window" fx:id="mainWindow" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="500.0" prefHeight="492.0" prefWidth="675.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nure.ua.a_clientSide.controller.AuthController">
+<BorderPane id="main-window" fx:id="mainWindow" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="500.0" prefHeight="492.0" prefWidth="675.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nure.ua.clientSide.controller.AuthController">
     <top>
         <AnchorPane id="top-tool-pane" fx:id="toolPanel" prefHeight="30.0" prefWidth="630.0" stylesheets="@styles/style.css" BorderPane.alignment="CENTER">
             <ImageView fx:id="quitButton" fitHeight="30.0" fitWidth="30.0" layoutX="570.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
