@@ -1,5 +1,6 @@
 package com.nure.ua.a_serverSide.application;
 
+import com.nure.ua.a_serverSide.serverCommand.FindUserCommand;
 import com.nure.ua.a_serverSide.serverCommand.SendMessageCommand;
 import com.nure.ua.a_serverSide.serverCommand.SignInCommand;
 import com.nure.ua.a_serverSide.serverCommand.SignUpCommand;
@@ -50,6 +51,7 @@ public class ApplicationContext {
         Server.getCommands().addCommand("sign_in", new SignInCommand(userService, messageService));
         Server.getCommands().addCommand("sign_up", new SignUpCommand(userService, messageService));
         Server.getCommands().addCommand("send_message", new SendMessageCommand(userService, messageService));
+        Server.getCommands().addCommand("find_user", new FindUserCommand(userService));
     }
 
 }

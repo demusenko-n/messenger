@@ -23,7 +23,7 @@ public class DataPackImpl implements DataPack {
 
     public void setFailState(String message) {
         command = failStateMsg;
-        args.put("message", message);
+        args.put("ex_message", message);
     }
 
     @Override

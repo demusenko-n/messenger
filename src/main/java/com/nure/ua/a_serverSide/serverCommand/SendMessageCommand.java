@@ -61,6 +61,7 @@ public class SendMessageCommand extends Command {
             sessions.addAll(ClientContainer.getSessionsOfUser(sender));
             sessions = sessions.stream().distinct().collect(Collectors.toList());
 
+            System.out.println(sessions.size());
 
             for (Session s : sessions) {
                 sendResponse(new Response(responsePack, s));

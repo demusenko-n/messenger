@@ -1,9 +1,11 @@
 package com.nure.ua.a_clientSide;
 
+import com.google.gson.reflect.TypeToken;
 import com.nure.ua.Utility;
 import com.nure.ua.a_clientSide.controller.Controller;
 import com.nure.ua.a_serverSide.model.entity.Message;
 import com.nure.ua.a_serverSide.model.entity.User;
+import com.nure.ua.exchangeData.dataPack.DataPack;
 import com.nure.ua.exchangeData.response.Response;
 import com.nure.ua.exchangeData.session.Session;
 import javafx.application.Application;
@@ -33,7 +35,7 @@ public class Client extends Application {
     public void start(Stage stage) throws IOException {
         this.stage = stage;
         stage.initStyle(StageStyle.TRANSPARENT);
-        switchFxml(Utility.FXML_PATH_AUTH);
+        loadFxml(Utility.FXML_PATH_AUTH);
         stage.show();
     }
 
@@ -44,14 +46,6 @@ public class Client extends Application {
     private Map<User, List<Message>> allMessages;
     private static final String address = "localhost";
     private static final int port = 4004;
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    public void setAllMessages(Map<User, List<Message>> allMessages) {
-        this.allMessages = allMessages;
-    }
 
     public void addMessage(Message message) {
         User otherUser;
@@ -86,12 +80,39 @@ public class Client extends Application {
     }
 
     public void receiveData(Response response) throws IOException {
+
+        DataPack dp = response.getData();
+        session = response.getSession();
+
+        if (dp.has("all_messages")) {
+            TypeToken<Map<User, List<Message>>> token = new TypeToken<>() {
+            };
+            this.allMessages = dp.get("all_messages", token.getType());
+        }
+        if (dp.has("message")) {
+            Message mes = dp.get("message", Message.class);
+            addMessage(mes);
+        }
+        if (dp.has("user")) {
+            User newUser = dp.get("user", User.class);
+
+            if (!allMessages.containsKey(newUser)) {
+                allMessages.put(newUser, new ArrayList<>());
+            }
+        }
+
         while (controller == null) {
             Thread.onSpinWait();
         }
-        controller.receiveData(response);
-    }
 
+        if (response.getData().isFailState()) {
+            Platform.runLater(() ->
+                    controller.showError(response.getData().get("ex_message", String.class))
+            );
+        } else {
+            controller.receiveData(response);
+        }
+    }
 
     @Override
     public void init() {
@@ -107,7 +128,7 @@ public class Client extends Application {
 
     }
 
-    public void switchFxml(String stringPath) throws IOException {
+    public void loadFxml(String stringPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(stringPath));
         Scene scene = new Scene(loader.load());
         controller = loader.getController();

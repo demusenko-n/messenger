@@ -6,8 +6,10 @@ import com.nure.ua.exchangeData.Request;
 import com.nure.ua.exchangeData.response.Response;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Window;
 
 import java.io.IOException;
@@ -22,34 +24,13 @@ public abstract class Controller {
     }
 
     @FXML
-    private void onWindowPressed(MouseEvent mouseEvent) {
-        Window window = application.getStage();
-        xOffset = window.getX() - mouseEvent.getScreenX();
-        yOffset = window.getY() - mouseEvent.getScreenY();
-    }
-
-    @FXML
-    private void onWindowDragged(MouseEvent mouseEvent) {
-        Window window = application.getStage();
-        window.setX(mouseEvent.getScreenX() + xOffset);
-        window.setY(mouseEvent.getScreenY() + yOffset);
-    }
-
-    @FXML
-    private AnchorPane mainWindow;
+    private BorderPane mainWindow;
 
     @FXML
     private AnchorPane toolPanel;
 
     @FXML
-    private void onAnchorPaneClick(MouseEvent mouseEvent) {
-        mainWindow.requestFocus();
-    }
-
-    @FXML
-    private void onQuit() {
-        exit();
-    }
+    private ImageView quitButton;
 
     protected void exit() {
         Platform.exit();
@@ -58,6 +39,10 @@ public abstract class Controller {
 
     protected void sendToServer(Request request) {
         application.getWriter().println(GsonCreator.getInstance().toJson(request));
+    }
+
+    public void showError(String str) {
+        System.err.println("error inside controller: " + str);
     }
 
     public abstract void receiveData(Response response) throws IOException;
@@ -69,12 +54,26 @@ public abstract class Controller {
     public void initialize() {
         Platform.runLater(() -> {
             if (toolPanel != null) {
-                toolPanel.addEventHandler(MouseEvent.MOUSE_DRAGGED, this::onWindowDragged);
-                toolPanel.addEventHandler(MouseEvent.MOUSE_PRESSED, this::onWindowPressed);
+                toolPanel.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
+                    Window window = application.getStage();
+                    window.setX(e.getScreenX() + xOffset);
+                    window.setY(e.getScreenY() + yOffset);
+                });
+
+                toolPanel.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+                    Window window = application.getStage();
+                    xOffset = window.getX() - e.getScreenX();
+                    yOffset = window.getY() - e.getScreenY();
+                });
+
             }
             if (mainWindow != null) {
-                mainWindow.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onAnchorPaneClick);
                 mainWindow.requestFocus();
+                mainWindow.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> mainWindow.requestFocus());
+                mainWindow.requestFocus();
+            }
+            if (quitButton != null) {
+                quitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> exit());
             }
         });
     }

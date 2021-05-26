@@ -91,6 +91,10 @@ public class Message extends Entity {
         this.time = time;
     }
 
+    public User getOtherUser(User user){
+        return user.getId() == receiver.getId() ? sender : receiver;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -103,4 +107,6 @@ public class Message extends Entity {
                 ", isEdited=" + isEdited +
                 '}';
     }
+
+
 }

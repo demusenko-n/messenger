@@ -1,27 +1,56 @@
-.auth-form {
-    -fx-background-radius: 20;
+#quitButton {
+    -fx-image: url(../img/x_white.png);
+}
+#sendMessageButton{
+    -fx-image: url(../img/sendmessage2.png);
+}
+
+#addUserButton {
+    -fx-image: url(../img/plus.png);
+}
+
+#addUserTextField {
     -fx-background-color: White;
-
 }
 
-#quit-btn {
-    -fx-image: url(../img/x_button.png);
+#top-tool-pane {
+    -fx-background-color: black;
 }
 
-.action-btn {
-    -fx-background-radius: 0;
-    /*-fx-border-color: black;*/
+#main-window {
+    -fx-background-color: white;
 }
 
-.enter-text-field {
-    -fx-background-radius: 0;
-    /*-fx-border-color: black;*/
+.header-label {
+    -fx-font-family: Consolas;
+    -fx-font-size: 22;
+    -fx-text-fill: black;
 }
 
-#toolPanel {
-    /*-fx-background-color: linear-gradient(to top, #ffffff, #b9b9b9, #777777, #3b3b3b, #000000);*/
-    -fx-background-color: linear-gradient(to top, #ffffff, #f1f1f1, #e3e3e3, #d6d6d6, #c8c8c8);
-    /*-fx-background-color: linear-gradient(to bottom, #96f3ff, #b9f4ff, #dbf5ff, #f3f8ff, #ffffff);*/
+.button-action {
+    -fx-border-color: Black;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
+    -fx-text-fill: Black;
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+}
+
+.input-text-field {
+    -fx-border-color: Black;
+    -fx-border-radius: 6;
+    /*-fx-text-fill: Black;*/
+    -fx-background-color: transparent;
+}
+
+.text-label {
+}
+
+.error-label {
+    -fx-font-size: 10;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 
 .scroll-pane {
@@ -33,29 +62,66 @@
     -fx-border-width: 0;
 }
 
-.scroll-pane .label {
-    -fx-font-size: 15;
 
-}
+/*.scroll-pane .label {*/
+/*    -fx-font-size: 15;*/
+/*}*/
 
-.scroll-pane .label {
-    -fx-font-size: 15;
+/*.scroll-pane .label {*/
+/*    -fx-font-size: 15;*/
 
-}
+/*}*/
 
-.chatBox:hover {
+.chat-box:hover {
     -fx-background-color: #e5a1a1;
 }
 
-.chatBox {
+.chat-box {
     -fx-background-color: #ffffff;
 }
 
-.chatBox:chosen {
+.chat-box:chosen {
     -fx-background-color: #9aa1b6;
 }
 
-.messageBox .label{
-    -fx-border-width: 0;
-    -fx-border-color: red;
+.message-h-box-right {
+    -fx-background-radius: 10;
+    -fx-background-color: skyblue;
+}
+
+.message-h-box-left {
+    -fx-background-radius: 10;
+    -fx-background-color: #ffcccb;
+}
+
+.label-content {
+    -fx-font-size: 14;
+}
+
+.label-date {
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+
+.user-info-h-box {
+    -fx-background-color: #D3D3D3;
+}
+
+.bottom-field-anchor-pane {
+    -fx-background-color: #D3D3D3;
+}
+
+.chat-h-box {
+    -fx-background-color: #D3D3D3;
+}
+
+.add-user-pane {
+    -fx-background-color: grey;
+}
+
+.avatar {
+    -fx-image: url(../img/avatar.png);
+}
+#messagesGridPane{
+    -fx-background-color: transparent;
 }

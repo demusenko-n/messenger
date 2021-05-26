@@ -14,10 +14,8 @@ public class DataPackAdapter implements JsonDeserializer<DataPack>, JsonSerializ
     @Override
     public DataPack deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
         JsonObject json = jsonElement.getAsJsonObject();
-
         String cmd = json.get("cmd").getAsString();
         JsonObject map = json.get("map").getAsJsonObject();
-
         return new DataPackSerialized(cmd, map);
     }
 

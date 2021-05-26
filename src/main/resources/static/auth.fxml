@@ -3,34 +3,30 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.BorderPane?>
 
-<SplitPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nure.ua.a_clientSide.controller.AuthController">
-    <AnchorPane fx:id="mainWindow" prefHeight="362.0" prefWidth="598.0" styleClass="auth-form" stylesheets="@styles/style.css">
-        <Label alignment="CENTER" layoutX="237.0" layoutY="50.0" prefHeight="30.0" prefWidth="124.0" text="Authorization">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </Label>
-
-        <TextField fx:id="loginTextField" alignment="CENTER" layoutX="225.0" layoutY="154.0" promptText="Login" styleClass="enter-text-field" />
-        <PasswordField fx:id="passwordTextField" alignment="CENTER" layoutX="225.0" layoutY="216.0" promptText="Password" styleClass="enter-text-field" />
-
-
-        <Button layoutX="273.0" layoutY="274.0" mnemonicParsing="false" onAction="#onSignInAction" styleClass="action-btn" text="Sign in" />
-        <Label layoutX="11.0" layoutY="333.0" text="Don't have an account?" />
-        <Label layoutX="14.0" layoutY="358.0" onMouseClicked="#onSignupClicked" text="Sign up" textFill="#180ed5" />
-        <AnchorPane id="toolPanel" fx:id="toolPanel" prefHeight="30.0" prefWidth="598.0">
-            <ImageView id="quit-btn" fitHeight="26.0" fitWidth="28.0" layoutX="571.0" layoutY="1.0" onMouseClicked="#onQuit" pickOnBounds="true" preserveRatio="true" />
+<BorderPane id="main-window" fx:id="mainWindow" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="500.0" prefHeight="492.0" prefWidth="675.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nure.ua.a_clientSide.controller.AuthController">
+    <top>
+        <AnchorPane id="top-tool-pane" fx:id="toolPanel" prefHeight="30.0" prefWidth="630.0" stylesheets="@styles/style.css" BorderPane.alignment="CENTER">
+            <ImageView fx:id="quitButton" fitHeight="30.0" fitWidth="30.0" layoutX="570.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            </ImageView>
         </AnchorPane>
-      <Label fx:id="errorLabel" textAlignment="CENTER" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="302.0" prefHeight="62.0" prefWidth="598.0" text="Label" textFill="RED" visible="false">
-         <font>
-            <Font name="System Bold" size="10.0" />
-         </font>
-      </Label>
-    </AnchorPane>
-</SplitPane>
+    </top>
+    <center>
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="431.0" prefWidth="708.0" BorderPane.alignment="CENTER">
+            <AnchorPane layoutX="152.0" layoutY="59.0" prefHeight="344.0" prefWidth="386.0" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="145.0" AnchorPane.rightAnchor="145.0" AnchorPane.topAnchor="57.0">
+                <Label alignment="CENTER" prefHeight="28.0" prefWidth="358.0" styleClass="header-label" text="Authorization" textAlignment="CENTER" AnchorPane.bottomAnchor="271.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                </Label>
+                <Button fx:id="actionButton" alignment="CENTER" layoutX="153.0" layoutY="223.6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" styleClass="button-action" text="Log In" AnchorPane.bottomAnchor="89.60000000000002" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="153.0" />
+                <TextField fx:id="loginTextField" alignment="CENTER" layoutX="104.0" layoutY="69.0" prefWidth="150.0" promptText="Login" styleClass="input-text-field" AnchorPane.bottomAnchor="204.6" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="104.0" />
+                <PasswordField fx:id="passwordTextField" alignment="CENTER" layoutX="103.0" layoutY="144.0" prefWidth="150.0" promptText="Password" styleClass="input-text-field" AnchorPane.bottomAnchor="144.4" AnchorPane.leftAnchor="104.0" AnchorPane.rightAnchor="104.0" />
+                <Label fx:id="errorLabel" alignment="CENTER" layoutY="257.0" prefHeight="86.0" prefWidth="386.0" styleClass="error-label" text="Label" textAlignment="CENTER" visible="false" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            </AnchorPane>
+            <Label layoutX="23.0" layoutY="405.0" styleClass="text-label" text="Don't have an account yet?" />
+            <Label fx:id="signUpLink" layoutX="23.0" layoutY="426.0" styleClass="text-label" text="Sign up" textFill="#1e16b2" />
+        </AnchorPane>
+    </center>
+</BorderPane>

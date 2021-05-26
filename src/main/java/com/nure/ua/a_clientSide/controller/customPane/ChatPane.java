@@ -4,9 +4,13 @@ import com.nure.ua.a_serverSide.model.entity.User;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.css.PseudoClass;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class ChatPane extends AnchorPane {
     static final public int sizeX = 100;
@@ -21,40 +25,44 @@ public class ChatPane extends AnchorPane {
         this.isActive.set(active);
     }
 
-    public boolean isActive() {
-        return isActive.get();
-    }
-
-    public BooleanProperty isActiveProperty() {
-        return isActive;
-    }
-
     public User getUser() {
         return user;
     }
 
-    public ChatPane(User user) {
+    private final Label labelLastMessage;
+
+    public void setLastMessage(String lastMessage) {
+        labelLastMessage.setText(lastMessage);
+    }
+
+    public ChatPane(User user, String lastMsgContent) {
         isActive = new SimpleBooleanProperty(false);
         isActive.addListener(e -> pseudoClassStateChanged(CHOSEN_PSEUDO_CLASS, isActive.get()));
-        getStyleClass().add("chatBox");
-
-
+        getStyleClass().add("chat-box");
         this.user = user;
+        ImageView img = new ImageView();
+        img.getStyleClass().add("avatar");
+        img.setFitHeight(46);
+        img.setFitWidth(46);
 
-        Label label = new Label();
-        this.getChildren().add(label);
+        HBox.setMargin(img, new Insets(2));
 
-        label.setMaxWidth(Double.MAX_VALUE);
-        AnchorPane.setLeftAnchor(label, 0.0);
-        AnchorPane.setRightAnchor(label, 0.0);
-        AnchorPane.setBottomAnchor(label, 0.0);
-        AnchorPane.setTopAnchor(label, 0.0);
-        label.setAlignment(Pos.CENTER);
+        Label labelUserName = new Label(user.getName());
+        labelUserName.setFont(new Font(18));
+        labelLastMessage = new Label(lastMsgContent);
+        labelLastMessage.setFont(new Font(12));
 
-        label.setText(user.getPassword());
+        VBox vBox = new VBox(labelUserName, labelLastMessage);
+        vBox.setPadding(new Insets(0,5,0,0));
+        HBox hBox = new HBox(img, vBox);
 
-        setMinSize(sizeX, sizeY);
 
+        AnchorPane.setTopAnchor(hBox, 0d);
+        AnchorPane.setLeftAnchor(hBox, 0d);
+        AnchorPane.setRightAnchor(hBox, 0d);
+        AnchorPane.setBottomAnchor(hBox, 0d);
+
+        getChildren().add(hBox);
     }
 }
 

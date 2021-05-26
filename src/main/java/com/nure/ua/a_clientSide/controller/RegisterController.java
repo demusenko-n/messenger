@@ -1,24 +1,27 @@
 package com.nure.ua.a_clientSide.controller;
 
-import com.google.gson.reflect.TypeToken;
 import com.nure.ua.Utility;
-import com.nure.ua.a_serverSide.model.entity.Message;
-import com.nure.ua.a_serverSide.model.entity.User;
 import com.nure.ua.exchangeData.Request;
 import com.nure.ua.exchangeData.dataPack.DataPack;
 import com.nure.ua.exchangeData.dataPack.DataPackImpl;
 import com.nure.ua.exchangeData.response.Response;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 public class RegisterController extends Controller {
+    @FXML
+    private Label signInLink;
+    @FXML
+    private Button actionButton;
     @FXML
     private Label errorLabel;
     @FXML
@@ -29,9 +32,9 @@ public class RegisterController extends Controller {
     private PasswordField passwordTextField;
 
     @FXML
-    private void onSignInClicked() {
+    private void onSignInClicked(Event ev) {
         try {
-            application.switchFxml(Utility.FXML_PATH_AUTH);
+            application.loadFxml(Utility.FXML_PATH_AUTH);
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
             exit();
@@ -40,25 +43,17 @@ public class RegisterController extends Controller {
 
     @Override
     public void receiveData(Response response) throws IOException {
-        application.setSession(response.getSession());
         DataPack dp = response.getData();
-        if (dp.isFailState()) {
-            Platform.runLater(() -> {
-                errorLabel.setText(dp.get("message", String.class));
-                errorLabel.setVisible(true);
-            });
-        } else if (dp.getCommand().equals("auth")) {
-            Map<User, List<Message>> all_messages = dp.get("all_messages",
-                    new TypeToken<Map<User, List<Message>>>() {}.getType());
 
-
-            application.setAllMessages(all_messages);
-            application.switchFxml(Utility.FXML_PATH_MAIN);
+        if (dp.getCommand().equals("auth")) {
+            application.loadFxml(Utility.FXML_PATH_MAIN);
+        } else {
+            System.err.println("unknown command: " + dp.getCommand());
         }
     }
 
     @FXML
-    private void onSignUpAction() {
+    private void onSignUpAction(Event ev) {
         String name = nameTextField.getText();
         String login = loginTextField.getText();
         String password = passwordTextField.getText();
@@ -91,5 +86,22 @@ public class RegisterController extends Controller {
             errorLabel.setText(errorMsg);
             errorLabel.setVisible(true);
         }
+    }
+
+    @Override
+    public void showError(String str) {
+        super.showError(str);
+        errorLabel.setText(str);
+        errorLabel.setVisible(true);
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+        Platform.runLater(() -> {
+            actionButton.addEventHandler(ActionEvent.ACTION, this::onSignUpAction);
+            signInLink.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSignInClicked);
+            errorLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, (ev)->errorLabel.setVisible(false));
+        });
     }
 }
